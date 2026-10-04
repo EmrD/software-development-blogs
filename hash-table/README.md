@@ -1,78 +1,78 @@
-# Hash Tablosu
+# Hash Table
 
-**Hash Tablosu**, key-value pair (anahtar-değer) eşleyen bir veri yapısıdır. Hash tabloları, özellikle arama sorgularında hızlı olmaları dolayısıyla sıkça kullanılır. Bir **temel hash fonksiyonu** kullanarak, anahtarları bir dizi içerisindeki indekslere dönüştürür ve değerler bu indekslerde saklanır.
+A **Hash Table** is a data structure that maps key-value pairs. Hash tables are frequently used due to their high speed, especially in search queries. By using a **primary hash function**, keys are converted into indices within an array, and values are stored at these indices.
 
-## Hash Tablosunun Çalışma Mantığı
-1. Bir anahtar tanımlanan **temel hash fonksiyonuna** gönderilir.
-2. Hash fonksiyonu, anahtarı bir dizi içinde bir indekse dönüştürür.
-3. Değer, hesaplanan indekse kaydedilir.
-4. Birden fazla anahtar aynı indeksi oluşturduğunda (çakışma), **ayrık zincirleme (seperate chaining)** veya **lineer probing** gibi teknikler kullanılır.
+## Working Principle of a Hash Table
+1. A key is sent to a defined **primary hash function**.
+2. The hash function converts the key into an index within an array.
+3. The value is saved at the calculated index.
+4. When multiple keys generate the same index (collision), techniques such as **separate chaining** or **linear probing** are used.
 
-## Hash Table Üzerinde Index Çakışması (Index Collision) Durumunda Yapılabilecekler
-1. Ayrık zincirleme (seperate chaining)
-2. Lineer Probing
+## What to Do in Case of Index Collision on a Hash Table
+1. Separate Chaining
+2. Linear Probing
 3. Quadratic Probing
 4. Double Hashing
 5. Plus 3<br>
 ...
 
-## Ayrık Zincirleme (Separate Chaining)
-Bu collision solution yönteminde temel amaç, çakışan index üzerinde bir linked-list oluşturarak 2 veya daha fazla veriyi value => next şeklinde tutmaktır. Örneğin; 4 sayısı 4. index üzerinde konumlanmak istiyor. Ancak daha sonra 14 sayısı da 10 boyutlu bir dizi üzerinde 4. index değerini alacak. Bu durumda şöyle bir yapı oluşur; 
+## Separate Chaining
+In this collision resolution method, the main goal is to create a linked-list at the colliding index to hold two or more items in a `value => next` structure. For example, the number 4 wants to be placed at index 4. However, later, the number 14 will also get index 4 in a array of size 10. In this case, the following structure is formed:
 
 ```4 - 14 => 14 - NULL```
 
-## Lineer Probing
-Bu yöntemde, çakışan index değeri belirli bir oranda artırılarak çıkan sonuç yeni index değeri olur. Örneğin 10 boyutlu bir dizide;
+## Linear Probing
+In this method, the colliding index value is increased by a certain rate, and the resulting value becomes the new index. For example, in an array of size 10:
 
 ```h(x) = x % 10```
 
-temel fonksiyon olsun. Bu durumda **4** ve **14** sayıları aynı index değerinde olacaklardır. Bu durumda sonradan eklenmek sayının index hesaplaması için; 
+be the primary function. In this case, the numbers **4** and **14** will yield the same index value. For calculating the index of the newly added number:
 
-```f(index) = index + 1``` 
+```f(index) = index + 1```
 
-gibi bir fonksiyon kullanılır. Buradaki artırma miktarı; kullanılan veri yapılarına ve projede kullanılan algoritmalara göre değişiklik gösterir. Örneğin, 14 sayısı için;
+a function like this is used. The increment amount here varies depending on the data structures and algorithms used in the project. For example, for the number 14:
 
 ```f(h(14)) = 5```
 
-sonucunu verir. Dolayısıyla 14 sayısı, 5. index üzerinde konumlanır. Bu durum boş yer bulunana kadar artırılmaya devam eder. 
+yields the result. Therefore, the number 14 is placed at index 5. This process continues to increment until an empty slot is found.
 
-# Lineer Probing Dezavantajları
-Lineer Probing yapısının en büyük dezavantajlarından biri, hash table üzerinde belirli index değerlerine yığılma yaparak önceki veya aradaki index değerlerine hiçbir veri yazamamasıdır. Bu durum verilerin verimli şekilde yerleşmemesine yol açar.
+# Disadvantages of Linear Probing
+One of the biggest disadvantages of the Linear Probing structure is that it creates clustering at certain index values on the hash table, failing to write any data to previous or intermediate indices. This leads to inefficient placement of data.
 
 ## Quadratic Probing
-Bu yapıda amaç Lineer Probing yapısının yol açtığı belirli index'ler üzerindeki yığılmayı bir nebze dağıtmaktır. Bunu ise i gibi bir değişken ile lineer olarak artırılarak yapılır. Örneğin; 4 sayısı 4. index üzerinde. 14 sayısı da 10 boyutlu bir dizide 4. index üzerinde gelmeye çalışıyor. Bu durumda şöyle bir fonksiyon ortya çıkar; 
+In this structure, the goal is to somewhat disperse the clustering at certain indices caused by Linear Probing. This is done by linearly incrementing a variable such as i. For example, the number 4 is at index 4. The number 14 also attempts to land on index 4 in an array of size 10. In this case, a function like this emerges:
 
 ```f(pre_index) = (pre_index + i^2) mod 10```
 
-dolayısıyla; 
+therefore;
 
-```f(4) = (4 + 1.1) mod 10 = 5```
+```f(4) = (4 + 1*1) mod 10 = 5```
 
-(i değeri, çoğu durumda 1'den başlayarak lineer olarak artış gösterir. Bir sonraki iterasyonda 2 olarak güncellenir.)
+(The value of i, in most cases, increases linearly starting from 1. It is updated to 2 in the next iteration.)
 
 ## Double Hashing
-Bu yapıdaki amaç Quadratic Probing gibi verileri düzenli şekilde dağıtmaya çalışır. Ancak bunu kullanıcı tanımlı ekstra bir fonksiyondan geçirerek yapar. 4 ve 14 için temel fonksiyon şu olsun; 
+The goal in this structure, like Quadratic Probing, is to distribute the data evenly. However, it does this by passing it through an extra user-defined function. Let the primary function for 4 and 14 be:
 
 ```h(x) = x mod size```
 
-10 boyut için; 
+For size 10;
 
-```h(4) = 4 mod 10 = 4```. index'e yerleşir. 
+```h(4) = 4 mod 10 = 4```. placed at index 4.
 
-14 için; 
+For 14;
 
-```h(14) = 14 mod 10 = 4```. index'e yerleşmek ***ister***.
+```h(14) = 14 mod 10 = 4```. ***wants*** to be placed at index 4.
 
-bu durumda kullanıcı tanımlı şöyle bir fonksiyondan geçirilip yeni index alınabilir; 
+In this case, a new index can be obtained by passing it through a user-defined function like this:
 
 ```f(x) = ((x + x) - (x/2)) mod size```
 
-14 için yeni index;
+New index for 14;
 
-```f(14) = (14 + 14) - (14/2) mod 10 = 21 mod 10 = 1```. index; 14 sayısı için yeni index değeri olur. 
+```f(14) = (14 + 14) - (14/2) mod 10 = 21 mod 10 = 1```. index 1 becomes the new index value for the number 14.
 
 ## Plus 3
-Bu yapıda, eğer bir index üzerinde bir çakışma olursa yeni eklenmek istenen değerin index değerine 3 eklenir ve o index'e yerleşir. 4 ve 14 için; 
+In this structure, if a collision occurs on an index, 3 is added to the index value of the new element to be added, and it is placed at that index. For 4 and 14:
 
-4 sayısı 4. index'e yerleşir. 
-14 sayısı **normal şartlar altında** 4. index'e yerleşir. Ancak dolu olduğunda ```4 + 3 = 7```. index'e yerleştirilir. Buradaki 3 sayısı, index yığılmalarını bir nebze önlemek için ortlama bir değer olarak verilmiştir. **Ancak standart terminoloji içinde yer almaz.**
+The number 4 is placed at index 4.
+The number 14 **under normal conditions** would be placed at index 4. However, when it is full, it is placed at index `4 + 3 = 7`. The number 3 here is given as an average value to somewhat prevent index clustering. **However, it is not part of standard terminology.**
