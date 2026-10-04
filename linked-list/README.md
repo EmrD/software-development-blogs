@@ -1,35 +1,37 @@
-# Linked List (bağlı liste) Nedir? 
+# What is a Linked List?
 
-Bağlı listeler 4 ana grupta incelenebilir:
+Linked lists can be analyzed in 4 main groups:
 
-- Singly Linked List (Tek Yönlü Bağlı Liste)
-- Doubly Linked List (Çift Yönlü Bağlı Liste)
-- Circular Linked List (dairesel bağlı liste anlamına gelir, tek veya çift yönlü olabilir)
+- Singly Linked List
+- Doubly Linked List
+- Circular Linked List (means circular linked list, which can be singly or doubly linked)
 
-Temel olarak bellek üzerinde birden fazla veriyi bir arada tutup gerekli yerlere gerekli elemanların referanslarını alarak buradan veri arama, sıralama, araya ekleme, silme gibi işlemleri yapar.
+Fundamentally, it keeps multiple data elements together in memory by taking references of the necessary elements in required places to perform operations such as searching, sorting, inserting, and deleting data.
 
 ## Singly Linked List
 
-Tek yönlü bağlı liste, bağlı listeler içerisindeki en sık kullanılan ve diğerlerine göre daha temel bir yapı içerir. Temelde, 1 index içinde 2 düğüm tutularak bir tanesinde o index üzerindeki verinin kendi değerini, bir diğer düğümünde ise bir sonraki index üzerinde bulunan değeri referans verir. Eğer ilgili index son index ise next değeri NULL olarak atanır. Görselleştirilmiş halini bulabilirsiniz; 
+A singly linked list is the most frequently used type among linked lists and features a more foundational structure compared to the others. Basically, 2 nodes are held within 1 index: one stores the actual value of the data at that index, while the other node holds the reference to the value located at the next index. If the corresponding index is the last index, the next value is assigned as NULL. You can find its visual representation below:
 
 ![image](https://github.com/user-attachments/assets/99cee3d8-a059-4afd-9648-0c22866f9098)
 
 ## Doubly Linked List
 
-Çift yönlü bağlı liste, tek yönlü bağlı listeye kıyasla ufak bir farklılık içerir. Tek yönlü bağlı listeden farklı olarak, bir index içerisinde 3 farklı düğüm bulunur. Bunlar sırasıyla; 
+A doubly linked list contains a minor difference compared to a singly linked list. Unlike a singly linked list, there are 3 different nodes within a single index. These are respectively:
 
 - Prev
 - Value
 - Next
 
-şeklindedir. Buradaki prev, bir önceki düğümün adresini tutar. Value kısmı o index üzerindeki değeri, next kısmı ise tek yönlü bağlı listedeki gibi bir sonraki index'in value kısmını referans verir. Eğer ilgili index 0 ise prev değeri NULL olarak, eğer son index ise next değeri NULL olarak atanır. Görselleştirilmiş hali; 
+Here, prev holds the address of the previous node. The value part holds the data at that index, and the next part references the value part of the next index, just like in a singly linked list. If the corresponding index is 0, the prev value is assigned as NULL; if it is the last index, the next value is assigned as NULL. Visualized version:
+
 ![image](https://github.com/user-attachments/assets/96315fb7-c2b3-43a2-a1e5-2bdbbf459727)
 
 ## Circular Linked List
 
-Dairesel bağlı listelerde son düğümün (tail) next pointer'ı, listenin başındaki (head) düğüme işaret eder. Örneğin index değeri 0 olan bir çift yönlü bağlı listede prev değeri normal şartlar altında NULL olması gerekiyorken, dairesel bağlı listede index 0'ın prev değeri son index'in value değerinin referansını verir. Aynı şekilde son index üzerindeki next değeri de index 0'ın value değerinin referansını alır. Tek yönlü dairesel bağlı listede ise tek fark yalnızca PREV kısmının olmamasıdır. Görselleştirilmiş hali; 
+In circular linked lists, the next pointer of the last node (tail) points to the node at the beginning of the list (head). For example, while the prev value of index 0 in a doubly linked list would normally be NULL, in a circular linked list, the prev value of index 0 references the value of the last index. Similarly, the next value on the last index takes the reference of the value at index 0. In a singly circular linked list, the only difference is that there is simply no PREV section. Visualized version:
+
 ![image](https://github.com/user-attachments/assets/f85e2167-9e1b-478a-b4b0-e4df84f2acbd)
 
-## Bağlı Listeler Nerelerde Kullanılır? 
+## Where are Linked Lists Used?
 
-Bağlı listeler özellikle bir önceki / sonraki işlemin tutulması gereken yerlerde kullanılır. İnternet tarayıcılarda bulunan ileri ve geri butonları genelde bu temeli kullanırlar. 
+Linked lists are particularly used in places where the previous / next action needs to be tracked. The forward and backward buttons found in web browsers generally rely on this foundation.
